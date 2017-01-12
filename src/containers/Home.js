@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import { resolve } from '../styles';
+import Mouse from '../components/Mouse';
 
 import SiteStyles from '../styles/Site.less';
 
@@ -11,31 +12,40 @@ class Home extends React.Component {
     router: React.PropTypes.shape({
       push: React.PropTypes.func.isRequired,
     }).isRequired,
-    items: React.PropTypes.array,
     history: React.PropTypes.object,
   };
   static defaultProps = {
     classes: SiteStyles,
-    items: [
-      { name: 'dance', link: 'dance' },
-      { name: 'ismtk', link: 'ismtk' },
-      { name: 'home', link: '' },
-    ],
   };
   constructor(props) {
     super(props);
-    this.background = ~~(Math.random() * 4);
+    this.state = {
+      mouse: {
+        x: 0,
+        y: 0,
+        state: null,
+      },
+    };
   }
-  onClick = (path) => {
-    const { router } = this.props;
-    router.push(path);
+  componentDidMount() {
+    this.mouseObject = new Mouse(this.container);
   }
+  componentWillUnmount() {
+    this.mouseObject = null;
+  }
+  // onClick = (path) => {
+  //   const { router } = this.props;
+  //   router.push(path);
+  // }
+  setMouseState = (config) => {
+    this.setState({
+      mouse: config,
+    });
+  }
+  /* eslint react/jsx-no-bind: 0 */
   render() {
-    const { items } = this.props;
     return (
-      <div {...resolve(this.props, 'container', `home${this.background}`)}>
-        <div {...resolve(this.props, 'widget')}>
-        </div>
+      <div {...resolve(this.props, 'container')} ref={(ref) => this.container = ref}>
       </div>
     );
   }

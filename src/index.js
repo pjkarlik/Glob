@@ -24,9 +24,9 @@ const description = require('../package.json').description;
 const args = [
   `\n %c %c %c ${description} %c ver ${version} %c \n\n`,
   'background: #000; padding:5px 0;border-top-left-radius:10px;border-bottom-left-radius:10px;',
-  'background: #51a7ff; padding:5px 0;',
-  'color: #51a7ff; background: #000; padding:5px 0;',
-  'color: #000; background: #51a7ff; padding:5px 0;',
+  'background: #00ff3f; padding:5px 0;',
+  'color: #00ff3f; background: #000; padding:5px 0;',
+  'color: #000; background: #00ff3f; padding:5px 0;',
   'background: #000; padding:5px 0;border-top-right-radius:10px;border-bottom-right-radius:10px;',
 ];
 try {
