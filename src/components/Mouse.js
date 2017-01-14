@@ -15,6 +15,7 @@ export default class Render {
   draw = (config) => {
     console.log(config);
   };
+
   /* eslint-disable no-nested-ternary */
   compare = (a, b) => {
     const result = (a.radius < b.radius) ? -1 : (a.radius > b.radius) ? 1 : 0;
