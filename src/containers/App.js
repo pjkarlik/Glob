@@ -3,9 +3,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import configureStore from '../redux/configureStore';
 
-/* Navigation Component */
+/* Other Components */
+import Badge from '../components/Badge';
+import BadgeStyles from '../components/Badge.less';
 import AppStyles from './App.less';
-import SiteStyles from '../styles/Site.less';
 // Set up store and load data.
 const store = configureStore();
 export default class App extends React.Component {
@@ -17,11 +18,8 @@ export default class App extends React.Component {
   render() {
     return (
         <Provider store={store}>
-          <div className = {AppStyles.bodyContainer}>
-            <div className = {SiteStyles.badge}>
-              <h3>paul j karlik</h3>
-              <p>ui architect &amp; creative technologist</p>
-            </div>
+          <div className = {AppStyles.container}>
+            <Badge classes = {BadgeStyles} />
             {this.props.children}
           </div>
         </Provider>

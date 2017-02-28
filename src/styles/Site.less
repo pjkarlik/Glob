@@ -1,45 +1,102 @@
 @import (reference) '../styles/Variables.less';
 @import (reference) '../styles/MediaQuery.less';
 @resourcePath:'../../resources/';
+
+// Default Site Styles //
 .container {
   height: 100%;
   padding: 0;
   margin: 0;
 }
 
-.badge {
-  position: absolute;
-  bottom: 0.938em;
-  left: 1.25em;
-  z-index: 999;
-
-  h3 {
-    color: @white;
-    font-family: @headerFont;
-    font-size: 1.75em;
-    margin-bottom: 0;
-    text-shadow: -0.125em -0.15em rgba(0,0,0,0.45);
-  }
-
-  p {
-    color: @white;
-    font-size: 0.875em;
-    margin: 0 0 0 .313em;
-    text-shadow: -0.1em -0.1em rgba(0,0,0,0.65);
+.sketch{
+  margin: 0 auto;
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
   }
 }
-.homeButton {
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  color: #FFF;
+
+// Info Header Styles
+.infoHeader {
+  box-sizing: border-box;
+  background: rgba(0,0,0,0.4);
   position: absolute;
-  bottom: 2.5em;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: .95em;
-  font-weight: 700;
-  outline: none;
+  top: 0.938em;
+  left: 1.25em;
+  margin-right: 1.25em;
+  z-index: 999;
+  width: 33.33%;
+
+  @media @medium {
+    width: 66.66%;
+  }
+  h2 {
+    padding: .625em;
+    box-shadow: inset 0 0 1px 1px @white;
+  }
+  p {
+    font-size: .982em;
+    padding: .625em;
+  }
+}
+
+.header {
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 900;
+  margin: 0;
+  overflow: hidden;
+  padding-right: 1em;
+  position: relative;
+  transition: background 300ms linear;
+  background:rgba(30,30,30,0);
+  &.shade {
+    background:rgba(30,30,30,1);
+    &> .indicator {
+      right: .825em;
+    }
+  }
+}
+
+.indicator {
+  overflow: hidden;
+  display: block;
+  position: absolute;
+  top: .825em;
+  right: 20em;
+  transition: all 300ms linear;
+  transform-origin: 50% 60%;
+  &:after {
+    content: "\25B2";
+    display: block;
+    line-height: 1em;
+  }
+  &.up {
+    transform: rotate(0deg);
+  }
+  &.down {
+    transform: rotate(-180deg);
+  }
+}
+
+h2:hover > .indicator {
+  right: .825em;
+}
+.infoContent {
+  transition: max-height 300ms linear;
+  overflow: hidden;
+  &.open {
+    max-height: 500px;
+  }
+  &.close {
+    max-height: 0;
+  }
 }
 
 .thirds {
