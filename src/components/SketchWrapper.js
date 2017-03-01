@@ -6,6 +6,8 @@ export default class SketchWrapper extends React.Component {
   static propTypes = {
     /** p5js Sketch to be executed in wrapper. */
     sketch: React.PropTypes.func,
+    /** p5js Sketch to be executed in wrapper. */
+    config: React.PropTypes.object,
     /** className for wrapper container. */
     className: React.PropTypes.string,
     /** inline style for wrapper container. */
@@ -23,10 +25,13 @@ export default class SketchWrapper extends React.Component {
   }
 
   componentWillReceiveProps(newprops) {
-    const { sketch } = this.props;
+    const { sketch, config } = this.props;
     if (sketch !== newprops.sketch) {
       this.handleRemove();
       this.handleSketch();
+    }
+    if (config !== newprops.config) {
+      this.handleconfig();
     }
   }
 
@@ -36,6 +41,11 @@ export default class SketchWrapper extends React.Component {
 
   handleRemove = () => {
     this.wrapper.removeChild(this.wrapper.childNodes[0]);
+  }
+
+  handleconfig = () => {
+    const { config } = this.props;
+    this.myp5.setOptions(config);
   }
 
   /**

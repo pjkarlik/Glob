@@ -25,24 +25,35 @@
 // Info Header Styles
 .infoHeader {
   box-sizing: border-box;
-  background: rgba(0,0,0,0.4);
+  background: rgba(50,50,50,0.6);
   position: absolute;
   top: 0.938em;
   left: 1.25em;
-  margin-right: 1.25em;
   z-index: 999;
-  width: 33.33%;
+  width: 20.625em;
 
-  @media @medium {
-    width: 66.66%;
+  @media @small {
+    left: 0;
+    top: 0;
+    right: 0;
+    width: auto;
   }
   h2 {
-    padding: .625em;
-    box-shadow: inset 0 0 1px 1px @white;
+    padding: .625em .875em;
   }
   p {
     font-size: .982em;
-    padding: .625em;
+    padding: .625em .875em;
+  }
+  a {
+    color: @white;
+    text-decoration: none;
+    transition: background 300ms linear;
+    background: rgba(250,50,50,0.3);
+    &:hover {
+      background: rgba(250,50,50,0.8);
+    }
+
   }
 }
 
@@ -55,9 +66,9 @@
   padding-right: 1em;
   position: relative;
   transition: background 300ms linear;
-  background:rgba(30,30,30,0);
+  background: rgba(50,50,50,0);
   &.shade {
-    background:rgba(30,30,30,1);
+    background: rgba(250,50,50,1);
     &> .indicator {
       right: .825em;
     }
@@ -69,7 +80,7 @@
   display: block;
   position: absolute;
   top: .825em;
-  right: 20em;
+  right: 30em;
   transition: all 300ms linear;
   transform-origin: 50% 60%;
   &:after {
@@ -86,9 +97,11 @@
 }
 
 h2:hover > .indicator {
-  right: .825em;
+  right: .625em;
 }
+
 .infoContent {
+  // border-top: 1px solid @white;
   transition: max-height 300ms linear;
   overflow: hidden;
   &.open {

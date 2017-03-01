@@ -25,19 +25,17 @@ class InfoHeader extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      isOpen: false,
-    };
   }
+
   toggleState = () => {
-    this.setState({
-      isOpen: !this.state.isOpen,
+    this.props.setSiteState({
+      isOpen: !this.props.isOpen,
     });
   }
+
   /* eslint react/jsx-no-bind: 0 */
   render() {
-    const { isOpen } = this.state;
-    const { title, type, description } = this.props;
+    const { isOpen, title, type, description } = this.props;
     return (
       <div {...resolve(this.props, 'infoHeader')}>
         <h2 {...resolve(this.props, 'header', isOpen ? 'shade' : null)} onClick = {this.toggleState}>
@@ -54,7 +52,7 @@ class InfoHeader extends React.Component {
 
 export default connect((state) => {
   const stateObject = {
-    isOpen: state.site.navigationIsOpen,
+    isOpen: state.site.isOpen,
   };
   return stateObject;
 }, { setSiteState })(withRouter(InfoHeader));

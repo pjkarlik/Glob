@@ -14,11 +14,11 @@ export default function sketch (p) {
   var spacer = 0;
   // setting items for render
   var time = 0, timeNoise = 0;
-  var iteration = 0.045;
-  var strength = 35;
+  var iteration = 0.05;
+  var strength = 40;
   var speed = 13;
   var waveSpeed = 0.004;
-  var shaderType = 'isOpen';
+  var shaderType = 'isClose';
   // setting color vars
   var r = 0, g = 0, b = 0, op = 0;
   var colorset = [0, 0, 0];
@@ -50,10 +50,17 @@ export default function sketch (p) {
   // simplex noise function
   };
 
+  p.setOptions = function(config) {
+    shaderType = config.shaderType || shaderType;
+    grid = config.grid || grid;
+    iteration = config.iteration || iteration;
+    speed = config.speed || speed;
+  }
+
   p.draw = function() {
     // advance time and tick draw loop for time segment
     var size = ~~(width / spacing);
-    var length = ~~(size * 1.25);
+    var length = ~~(size * 1.5);
     spacer = spacer + speed;
     if (spacer > length) {
       // the time phase of the noise wave moves
@@ -66,7 +73,7 @@ export default function sketch (p) {
     p.viewPort();
 
     // move to center to start drawing grid
-    p.translate(-width_half, -height, 200);
+    p.translate(-width_half, -height, 0);
 
     for (var j = 0; j < spacing * 2; j++) {
       for (var i = 0; i < spacing; i++) {
@@ -112,7 +119,7 @@ export default function sketch (p) {
 
   p.viewPort = function() {
     p.background(background);
-    p.translate((width / 2) - (spacing * grid / 2), -100, zoom);
+    p.translate((width / 2) - (spacing * grid / 2), 0, zoom);
     p.checkForChange();
     p.moveVectors();
     p.rotateX(90 + camY);
@@ -151,21 +158,18 @@ export default function sketch (p) {
   p.shader = function(noise, i, j){
     switch(shaderType) {
       case 'isOpen':
-        r = Math.cos(noise * 2.5 * Math.PI / 180 - (time * 0.01)) * 255;
+        r = 55 + Math.cos(noise * 2 * Math.PI / 180 - (time * 0.005)) * 155;
         b = r;
         g = b;
         op = 255;
         break;
       case 'isClose':
-        r = Math.cos(noise * 1.5 * Math.PI / 180 - (time * 0.01)) * 255;
-        b = Math.sin(r * 0.15 * Math.PI / 180 + (time * 0.05)) * 255;
-        g = 255 - ~~(r * j * i) / 255;
+        b = Math.cos(noise * Math.PI / 180 + (time * 0.02)) * 255;
+        r = 255 - Math.sin(1 + noise * Math.PI / 180 - (time * 0.01)) * 255;
+        g = 255 - Math.cos(2 + noise * 2 * Math.PI / 360) * 255;
         op = 255;
+        break;
     }
-    // r = Math.cos(noise * 2.5 * Math.PI / 180 - (time * 0.01)) * 255;
-    // b = Math.sin(noise * 1.5 * Math.PI / 180 + (time * 0.01)) * 255;
-    // g = 0;
-    // op = 255;
 
     return {
       r,
