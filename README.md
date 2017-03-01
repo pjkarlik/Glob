@@ -1,9 +1,12 @@
-# Glob Interface
+# Glob - ERRRRR React Interface
 
-  Attempting to make an interface that uses particles to create blob like effects as a user moves around the page.
-  This is experimental....
+  Temp demo site / page for mixing p5js into react components. This is becoming a quick prototype for a personal
+  portfolio page.
 
 ## Change Log
+  * Redux state for infoBox - switch color theme of p5js sketch
+  * p5js SketchWrapper in React
+  * clearing ui and updating router
   * Initial Commit - Basic formula found online.
 
 ## Run the example
