@@ -42,14 +42,17 @@ export default class SketchWrapper extends React.Component {
   handleRemove = () => {
     this.wrapper.removeChild(this.wrapper.childNodes[0]);
   }
-
+  /**
+   * Sends an object into the setOptions functions of the p5js sketch.
+   * @param {Object} config
+   */
   handleconfig = () => {
     const { config } = this.props;
     this.myp5.setOptions(config);
   }
 
   /**
-   * Loads a p5js sketch into the div wrapper
+   * Loads a p5js sketch into the div wrapper.
    * @param {Function} sketch
    */
   handleSketch = (sketch) => {

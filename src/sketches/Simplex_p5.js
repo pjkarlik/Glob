@@ -6,7 +6,7 @@ export default function sketch (p) {
   generator = new Generator(10);
   // setting screen vars
   var viewSize = window.innerWidth || document.documentElement.clientWidth;
-  var width = 640, height = 640;
+  var width = 600, height = 338; // 16:9 Movie Ratio
   var width_half = width / 2;
   var height_half = height / 2;
   var grid = viewSize < 640 ? 70 : 40;
@@ -73,7 +73,7 @@ export default function sketch (p) {
     p.viewPort();
 
     // move to center to start drawing grid
-    p.translate(-width_half, -height, 0);
+    p.translate(-width_half, -height * 2, 0);
 
     for (var j = 0; j < spacing * 2; j++) {
       for (var i = 0; i < spacing; i++) {

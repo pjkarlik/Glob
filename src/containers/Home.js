@@ -36,19 +36,21 @@ class Home extends React.Component {
     const config = {
       shaderType: isOpen ? 'isClose' : 'isOpen',
     };
-    const description = '<a href=http://p5js.org/ target=_blank>p5.js</a>' +
-    ' is a JavaScript library that is based off the Processing language. ' +
-    '<a href=http://processing.org target=_blank>Processing</a> ' +
-    'itself is a language for coding complex interactions within the context of the visual arts. ' +
-    '<br /><br />This sketch is a visualization of dynamic data points produced by a simplex noise function. ' +
+    const description = 'p5.js is a JavaScript library that ' +
+    'is based off the Processing language. Processing itself is a language for coding complex interactions ' +
+    'within the context of the visual arts. ' +
+    '<br /><br />' +
+    'More about processing at <a href=http://p5js.org target=_blank>http://p5js.org</a> ' +
+    '<br /><br />' +
+    'This sketch is a visualization of dynamic data points produced by a simplex noise function. ' +
     'Using time as a variable, we step though the animations evolving dataset. The colors are produced by running ' +
-    'a sine and cosine formula for each point on this moving grid. ';
+    'a sine and cosine formula for each point on this moving grid. <br />';
     return (
       <div {...resolve(this.props, 'container')} ref={(ref) => this.container = ref}>
         <InfoHeader
           classes = {classes}
           title = {'Processing p5.js'}
-          type = {'JavScript'}
+          type = {'JavaScript'}
           description = {description}
         />
       <SketchWrapper {...resolve(this.props, 'sketch')} config={config} sketch = { sketch } />
