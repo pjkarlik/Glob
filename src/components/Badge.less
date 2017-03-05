@@ -6,24 +6,29 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  padding: 0.938em 1.25em;
+  padding: 0.938em 1.25em 1.25em;
   text-align: right;
   z-index: 999;
 
   h3 {
     color: @white;
+    display: inline-block;
     font-family: @headerFont;
-    font-size: 2.25em;
+    font-size: 3.25em;
     line-height: .989em;
     margin: 0;
-    padding: 0 .625em 0 0;
-    text-shadow: 0.1em 0.1em 0.275em rgba(0, 0, 0, .5);
+    padding: 0 .15em 0 .125em;
+    //text-shadow: 0 0 0.275em rgba(0, 0, 0, .8);
   }
 
   p {
     color: @white;
-    font-size: 0.75em;
+    display: inline-block;
+    font-family: @headerFont;
+    font-size: .75em;
     margin: 0;
-    text-shadow: 0.1em 0.1em 0.275em rgba(0, 0, 0, .8);
+    padding-bottom: 0.188em;
+    //text-shadow: 0 0 0.275em rgba(0, 0, 0, .8);
+    vertical-align: bottom;
   }
 }

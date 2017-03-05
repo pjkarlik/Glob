@@ -14,10 +14,14 @@ export default function sketch (p) {
   var spacer = 0;
   // setting items for render
   var time = 0, timeNoise = 0;
-  var iteration = 0.05;
-  var strength = 40;
-  var speed = 13;
-  var waveSpeed = 0.004;
+  var iteration = p.random(25,65) / 1000;
+  var strength = ~~(p.random(25,50));
+  var speed = ~~(p.random(100,600) / grid);
+  var waveSpeed = p.random(15,40) / 10000;
+  // var iteration = 0.05;
+  // var strength = 40;
+  // var speed = 13;
+  // var waveSpeed = 0.003;
   var shaderType = 'isClose';
   // setting color vars
   var r = 0, g = 0, b = 0, op = 0;
@@ -163,10 +167,16 @@ export default function sketch (p) {
         g = b;
         op = 255;
         break;
+      case 'isClosex':
+        r = Math.cos(noise * Math.PI / 180 + (time * 0.02)) * 255;
+        g = 255 - Math.sin(1 + noise * Math.PI / 180 - (time * 0.01)) * 255;
+        b = 255 - Math.cos(2 + noise * 2 * Math.PI / 360) * 255;
+        op = 255;
+        break;
       case 'isClose':
-        b = Math.cos(noise * Math.PI / 180 + (time * 0.02)) * 255;
-        r = 255 - Math.sin(1 + noise * Math.PI / 180 - (time * 0.01)) * 255;
-        g = 255 - Math.cos(2 + noise * 2 * Math.PI / 360) * 255;
+        r = Math.cos(noise * Math.PI / 180 + (time * 0.02)) * 255;
+        g = 255 - Math.sin(1 + noise * Math.PI / 180 - (time * 0.01)) * 255;
+        b = Math.sin(noise * 2 * Math.PI / 180 + (time * 0.05)) * 255;
         op = 255;
         break;
     }

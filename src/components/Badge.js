@@ -9,8 +9,8 @@ export default class Badge extends React.Component {
     const { classes } = this.props;
     return (
       <div className = {classes.badge}>
-        <h3>pjkarlik.com</h3>
-        <p>ui architect &amp; creative technologist</p>
+        <p>ui architect &amp;<br />creative technologist &nbsp;</p>
+        <h3>pjk</h3>
       </div>
     );
   }

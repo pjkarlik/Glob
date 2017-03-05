@@ -1,6 +1,5 @@
 @import (reference) '../styles/Variables.less';
 @import (reference) '../styles/MediaQuery.less';
-@resourcePath:'../../resources/';
 
 // Default Site Styles //
 .container {
@@ -54,7 +53,24 @@
   a {
     color: @white;
     text-decoration: none;
-    background: rgb(250,50,50);
+    padding: 0 .313em;
+    transition: background 300ms linear;
+    background: rgba(250,50,50,0.3);
+    &:hover {
+      background: rgba(250,50,50,1);
+    }
+  }
+}
+
+.infoContent {
+  // border-top: 1px solid @white;
+  transition: max-height 300ms linear;
+  overflow: hidden;
+  &.open {
+    max-height: 500px;
+  }
+  &.close {
+    max-height: 0;
   }
 }
 
@@ -99,18 +115,6 @@
 
 h2:hover > .indicator {
   right: .625em;
-}
-
-.infoContent {
-  // border-top: 1px solid @white;
-  transition: max-height 300ms linear;
-  overflow: hidden;
-  &.open {
-    max-height: 500px;
-  }
-  &.close {
-    max-height: 0;
-  }
 }
 
 .thirds {
