@@ -36,14 +36,17 @@ class InfoHeader extends React.Component {
   /* eslint react/jsx-no-bind: 0 */
   render() {
     const { isOpen, title, type, description } = this.props;
+    const stateClass = isOpen ? 'open' : 'close';
     return (
-      <div {...resolve(this.props, 'infoHeader')}>
-        <h2 {...resolve(this.props, 'header', isOpen ? 'shade' : null)} onClick = {this.toggleState}>
-          {type} | {title}
-          <div {...resolve(this.props, 'indicator', isOpen ? 'up' : 'down')} />
-        </h2>
-        <div {...resolve(this.props, 'infoContent', isOpen ? 'open' : 'close')}>
-          <p dangerouslySetInnerHTML={{ __html: description }}/>
+      <div {...resolve(this.props, 'container', stateClass)}>
+        <div {...resolve(this.props, 'content')}>
+          <h2 {...resolve(this.props, 'header', stateClass || null)} onClick = {this.toggleState}>
+            {type} | {title}
+            <div {...resolve(this.props, 'indicator', stateClass || null)} />
+          </h2>
+          <div {...resolve(this.props, 'infoContent', stateClass || null)}>
+            <p dangerouslySetInnerHTML={{ __html: description }}/>
+          </div>
         </div>
       </div>
     );

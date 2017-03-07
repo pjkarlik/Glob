@@ -1,6 +1,8 @@
 @import (reference) '../styles/Variables.less';
 @import (reference) '../styles/MediaQuery.less';
 
+@contentSize: 48em;
+
 // Default Site Styles //
 .container {
   height: 100%;
@@ -10,6 +12,9 @@
 
 .sketch{
   margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  position: relative;
   canvas {
     width: 100% !important;
     height: 100% !important;
@@ -17,108 +22,96 @@
     left: 0;
     right: 0;
     bottom: 0;
-    position: absolute;
+    position: fixed;
+    z-index: -1;
   }
 }
 
-// Info Header Styles
-.infoHeader {
-  box-sizing: border-box;
-  background: rgba(50,50,50,0.6);
-  position: absolute;
-  top: 0.938em;
-  left: 1.25em;
-  z-index: 999;
-  width: 20.625em;
+@headerHeight: 30px;
 
-  @media @small {
-    left: 0;
-    top: 0;
-    right: 0;
-    width: auto;
+.section{
+  position: relative;
+  width: 100%;
+  &.base {
+    background: @white;
+    color: @black;
   }
-  h2 {
-    padding: .625em .875em;
+  &.accent {
+    background: rgba(0,0,0,0.4);
+    color: @white;
   }
-  h6 {
+  &.header {
+    margin-top: -35px;
+    height: @headerHeight;
+    text-align: right;
+  }
+  &.subheader {
+    height: @headerHeight;
+    text-align: left;
+  }
+}
+
+.datcontainer {
+  width: 245px;
+  top: -10px;
+  position: absolute;
+  z-index: 100;
+  right: 0px;
+}
+
+.logoThumb{
+  background: @white;
+  box-sizing: border-box;
+  color: @black;
+  display: inline-block;
+  font-size: 1em;
+  padding: .35em .875em 0;
+  position: relative;
+  height: @headerHeight;
+  &:before{
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+  &.bottom {
+    min-width: 15%;
+    &:before{
+      right: -@headerHeight;
+      top: 0;
+      border-width: @headerHeight @headerHeight 0 0 ;
+      border-color: @white transparent transparent transparent;
+    }
+  }
+  &.top {
+    &:before{
+      left: -@headerHeight;
+      top: 0;
+      border-width: 0 0 @headerHeight @headerHeight;
+      border-color: transparent transparent @white transparent;
+    }
+  }
+}
+
+.content {
+  margin: 0 auto;
+  padding: 1.25em .625em;
+  max-width: @contentSize;
+  position: relative;
+  h3 {
     color: rgb(250,50,50);
-    font-size: 1em;
+    font-size: 2em;
     margin: 0;
     padding: 0;
   }
   p {
-    font-size: .982em;
-    padding: .625em .875em;
-  }
-  a {
-    color: @white;
-    text-decoration: none;
-    padding: 0 .313em;
-    transition: background 300ms linear;
-    background: rgba(250,50,50,0.3);
-    &:hover {
-      background: rgba(250,50,50,1);
+    font-size: .875em;
+    padding: .625em 0;
+    margin: 0;
+
+    &.half {
+      width: 33%;
     }
   }
-}
-
-.infoContent {
-  // border-top: 1px solid @white;
-  transition: max-height 300ms linear;
-  overflow: hidden;
-  &.open {
-    max-height: 500px;
-  }
-  &.close {
-    max-height: 0;
-  }
-}
-
-.header {
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: 900;
-  margin: 0;
-  overflow: hidden;
-  padding-right: 1em;
-  position: relative;
-  transition: background 300ms linear;
-  background: rgba(50,50,50,0);
-  &.shade {
-    background: rgba(250,50,50,1);
-    &> .indicator {
-      right: .825em;
-    }
-  }
-}
-
-.indicator {
-  overflow: hidden;
-  display: block;
-  position: absolute;
-  top: .825em;
-  right: 30em;
-  transition: all 300ms linear;
-  transform-origin: 50% 60%;
-  &:after {
-    content: "\25B2";
-    display: block;
-    line-height: 1em;
-  }
-  &.up {
-    transform: rotate(0deg);
-  }
-  &.down {
-    transform: rotate(-180deg);
-  }
-}
-
-h2:hover > .indicator {
-  right: .625em;
-}
-
-.thirds {
-  display: inline-block;
-  width: 66.33%;
-  vertical-align: top;
 }

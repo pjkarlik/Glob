@@ -1,6 +1,15 @@
 @import (reference) '../styles/Variables.less';
 @import (reference) '../styles/MediaQuery.less';
 
+  @outlineColor: @white;
+.stroke {
+  text-shadow:
+   -1px -1px 0 @outlineColor,
+    1px -1px 0 @outlineColor,
+    -1px 1px 0 @outlineColor,
+     1px 1px 0 @outlineColor,
+}
+
 // Lower Badge Styles //
 .badge {
   position: absolute;
@@ -14,11 +23,10 @@
     color: @white;
     display: inline-block;
     font-family: @headerFont;
-    font-size: 3.25em;
+    font-size: 1.25em;
     line-height: .989em;
     margin: 0;
     padding: 0 .15em 0 .125em;
-    //text-shadow: 0 0 0.275em rgba(0, 0, 0, .8);
   }
 
   p {
@@ -28,7 +36,6 @@
     font-size: .75em;
     margin: 0;
     padding-bottom: 0.188em;
-    //text-shadow: 0 0 0.275em rgba(0, 0, 0, .8);
     vertical-align: bottom;
   }
 }

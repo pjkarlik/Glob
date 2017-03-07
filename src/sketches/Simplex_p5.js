@@ -18,10 +18,7 @@ export default function sketch (p) {
   var strength = ~~(p.random(25,50));
   var speed = ~~(p.random(100,600) / grid);
   var waveSpeed = p.random(15,40) / 10000;
-  // var iteration = 0.05;
-  // var strength = 40;
-  // var speed = 13;
-  // var waveSpeed = 0.003;
+  var objectType = 'plane';
   var shaderType = 'isClose';
   // setting color vars
   var r = 0, g = 0, b = 0, op = 0;
@@ -31,6 +28,7 @@ export default function sketch (p) {
   var timeout = false;
   var zOffset = 0, offsetX = 0, offsetY = 0;
   var zoom = -50;
+  var tempZoom = zoom;
   var camX = width_half, camY = height_half;
   var tempX = width_half, tempY = height_half;
   var thisX = width_half, thisY = height_half;
@@ -56,9 +54,20 @@ export default function sketch (p) {
 
   p.setOptions = function(config) {
     shaderType = config.shaderType || shaderType;
-    grid = config.grid || grid;
-    iteration = config.iteration || iteration;
+    objectType = config.objectType || objectType;
+    strength = config.strength || strength;
+    iteration = config.iteration / 100 || iteration;
     speed = config.speed || speed;
+    waveSpeed = config.waveSpeed / 100000 || waveSpeed;
+    tempZoom = config.tempZoom || tempZoom;
+    background = config.background || background;
+    // return {
+    //   shaderType,
+    //   iteration,
+    //   speed,
+    //   strength,
+    //   tempZoom,
+    // };
   }
 
   p.draw = function() {
@@ -76,8 +85,8 @@ export default function sketch (p) {
     p.generateMesh();
     p.viewPort();
 
-    // move to center to start drawing grid
-    p.translate(-width_half, -height * 2, 0);
+    // fix into position to draw grid
+    p.translate(-width_half, -(spacing * length), 100);
 
     for (var j = 0; j < spacing * 2; j++) {
       for (var i = 0; i < spacing; i++) {
@@ -91,7 +100,17 @@ export default function sketch (p) {
         p.push();
         p.translate(i * size, j * length - spacer, -(noiseValue * 2));
         p.ambientMaterial(colorset.r, colorset.g, colorset.b, colorset.op);
-        p.box(size, length, length);
+        switch (objectType) {
+          case 'plane':
+            p.plane(size,length);
+            break;
+          case 'box':
+            p.box(size, length, length);
+            break;
+          default:
+            p.plane(size,length);
+            break;
+        }
         p.pop();
       }
     }
@@ -122,6 +141,7 @@ export default function sketch (p) {
   };
 
   p.viewPort = function() {
+    zoom = zoom - (zoom - tempZoom) * 0.1;
     p.background(background);
     p.translate((width / 2) - (spacing * grid / 2), 0, zoom);
     p.checkForChange();
@@ -131,7 +151,7 @@ export default function sketch (p) {
   };
 
   p.checkForChange = function() {
-    if (p.random(1,255) > 252 && !timeout) {
+    if (p.random(1,255) > 232 && !timeout) {
       tempX = width_half - (width - p.random(1, width * 2)) * .8;
       p.pauseChange();
     }
@@ -147,11 +167,11 @@ export default function sketch (p) {
     camX = (width_half - thisX) * 0.006;
     camY = (height_half - thisY) * 0.008;
   };
-
-  p.mouseWheel = function(event) {
-    zoom += event.delta;
-    return false;
-  };
+  //
+  // p.mouseWheel = function(event) {
+  //   zoom += event.delta;
+  //   return false;
+  // };
 
   p.lighting = function()  {
     p.directionalLight(250, 250, 250, 255, 1, 0, -1);
@@ -161,23 +181,23 @@ export default function sketch (p) {
 
   p.shader = function(noise, i, j){
     switch(shaderType) {
-      case 'isOpen':
+      case 'editor':
         r = 55 + Math.cos(noise * 2 * Math.PI / 180 - (time * 0.005)) * 155;
         b = r;
         g = b;
-        op = 255;
+        op = objectType === 'box' ? 255 : 155;
         break;
-      case 'isClosex':
+      case 'outro':
         r = Math.cos(noise * Math.PI / 180 + (time * 0.02)) * 255;
-        g = 255 - Math.sin(1 + noise * Math.PI / 180 - (time * 0.01)) * 255;
         b = 255 - Math.cos(2 + noise * 2 * Math.PI / 360) * 255;
-        op = 255;
+        g = b;
+        op = objectType === 'box' ? 50 : 75;
         break;
-      case 'isClose':
+      case 'splash':
         r = Math.cos(noise * Math.PI / 180 + (time * 0.02)) * 255;
         g = 255 - Math.sin(1 + noise * Math.PI / 180 - (time * 0.01)) * 255;
         b = Math.sin(noise * 2 * Math.PI / 180 + (time * 0.05)) * 255;
-        op = 255;
+        op = objectType === 'box' ? 255 : 155;
         break;
     }
 

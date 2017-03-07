@@ -12,7 +12,13 @@ export function setSiteState(state) {
 }
 // REDUCER
 export default function reducer(state = {
-  isOpen: false,
+  config: {
+    iteration: 4,
+    strength: 40,
+    speed: 13,
+    tempZoom: -50,
+    shaderType: 'splash',
+  },
 }, action) {
   switch (action.type) {
     case SET_SITE_STATE: {
