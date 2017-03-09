@@ -151,12 +151,12 @@ export default function sketch (p) {
   };
 
   p.checkForChange = function() {
-    if (p.random(1,255) > 232 && !timeout) {
+    if (p.random(1,255) > 245 && !timeout) {
       tempX = width_half - (width - p.random(1, width * 2)) * .8;
       p.pauseChange();
     }
-    if (p.random(1,255) > 250 && !timeout) {
-      tempY = height_half - (lastHigh / 8) - (60 - p.random(1, 120));
+    if (p.random(1,255) > 245 && !timeout) {
+      tempY = height_half - (lastHigh / 10) - (60 - p.random(1, 120));
       p.pauseChange();
     }
   };

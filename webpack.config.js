@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const config = {
-  name: 'Glob',
+  name: 'pjkarlik',
   target: 'web',
   devServer: {
     host: '0.0.0.0',
@@ -83,7 +83,7 @@ const config = {
     new ExtractTextPlugin('style/style.css', { allChunks: true }),
     new HtmlWebpackPlugin({
       css: 'styles/styles.css',
-      title: 'glob',
+      title: 'PJkarlik | UI Architect',
       favicon: './resources/images/favicon.png',
       template: './resources/templates/template.ejs',
       inject: 'body',
