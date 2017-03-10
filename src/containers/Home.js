@@ -2,30 +2,27 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { resolve } from '../styles';
 import { connect } from 'react-redux';
-import dat from 'dat-gui';
 
 import { setSiteState } from '../redux/modules/site';
 import SketchWrapper from '../components/SketchWrapper';
+import ContentSplash from './ContentHomeSplash';
+import ContentGui from './ContentHomeGui';
 
 import SiteStyles from '../styles/Site.less';
 
 import sketch from '../sketches/Simplex_p5';
 
-const Header = (props) => {
-  const { children } = props;
+const Cap = (props) => {
+  const { direction } = props;
   return (
-    <div {...resolve(props, 'section', 'header')}>
-      <div {...resolve(props, 'center')}>
-        <div {...resolve(props, 'logoThumb', 'top')}>
-          {children}
-        </div>
-      </div>
+    <div {...resolve(props, 'section', 'header', direction)}>
+      <div {...resolve(props, 'logoThumb', direction)}>&nbsp;</div>
     </div>
   );
 };
-
-Header.propTypes = {
-  children: React.PropTypes.string,
+Cap.displayName = 'Cap';
+Cap.propTypes = {
+  direction: React.PropTypes.string,
 };
 
 
@@ -33,6 +30,7 @@ class Home extends React.Component {
   static displayName = 'Home';
   static propTypes = {
     classes: React.PropTypes.object,
+    ref: React.PropTypes.object,
     /** Router Props **/
     router: React.PropTypes.shape({
       push: React.PropTypes.func.isRequired,
@@ -59,13 +57,12 @@ class Home extends React.Component {
       shaderType: 'splash',
       objectType: 'plane',
     };
-    this.setSizes();
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.checkPosition);
     window.addEventListener('resize', this.setSizes);
-    this.createGUI();
+    this.setSizes();
     this.checkPosition();
   }
 
@@ -73,8 +70,10 @@ class Home extends React.Component {
   }
 
   setSizes = () => {
-    this.width = (document.documentElement.clientWidth, window.innerWidth || 0);
-    this.height = (document.documentElement.clientHeight, window.innerHeight || 0);
+    this.setState({
+      width: (document.documentElement.clientWidth, window.innerWidth || 0),
+      height: (document.documentElement.clientHeight, window.innerHeight || 0),
+    });
   }
 
   setOptions = (options) => {
@@ -85,23 +84,24 @@ class Home extends React.Component {
   }
 
   checkPosition = () => {
-    // const { config } = this.props;
+    const { height } = this.state;
     const top = document.body.scrollTop;
-    if (top < this.height) {
+    // zone settings
+    if (top < height) {
       this.setState({
         shaderType: 'splash',
         tempZoom: -50,
         background: [0, 0, 0],
       });
     }
-    if (top > this.height && top < this.height * 2) {
+    if (top > height && top < height * 2) {
       this.setState({
         shaderType: 'editor',
         tempZoom: -1550,
         background: [255, 255, 255],
       });
     }
-    if (top > (this.height * 2) + 300) {
+    if (top > (height * 2) + 300) {
       this.setState({
         shaderType: 'outro',
         tempZoom: -500,
@@ -110,93 +110,33 @@ class Home extends React.Component {
     }
   };
 
-  createGUI = () => {
-    this.config = {
-      ...this.state,
-    };
-    this.gui = new dat.GUI({ autoPlace: false });
-    this.datwindow.appendChild(this.gui.domElement);
-    const folderRender = this.gui.addFolder('Render Options');
-    folderRender.add(this.config, 'iteration', 0.1, 10).step(0.1)
-      .onFinishChange((value) => {
-        this.config.iteration = value;
-        this.setOptions({ iteration: value });
-      });
-    folderRender.add(this.config, 'strength', 10, 80).step(1)
-      .onFinishChange((value) => {
-        this.config.strength = value;
-        this.setOptions({ strength: value });
-      });
-    folderRender.add(this.config, 'speed', 0, 100).step(1)
-      .onFinishChange((value) => {
-        this.config.speed = value;
-        this.setOptions({ speed: value });
-      });
-    folderRender.add(this.config, 'waveSpeed', 50, 600).step(1)
-      .onFinishChange((value) => {
-        this.config.waveSpeed = value;
-        this.setOptions({ waveSpeed: value });
-      });
-    folderRender.add(this.config, 'objectType',
-    ['plane', 'box'])
-    .onFinishChange((value) => {
-      this.config.objectType = value;
-      this.setOptions({ objectType: value });
-    });
-    folderRender.open();
-  };
-
   /* eslint react/jsx-no-bind: 0 */
   render() {
     const { classes } = this.props;
     const config = {
       ...this.state,
     };
+    const sectionHeight = { height: this.state.height };
     return (
-      <div {...resolve(this.props, 'container')} ref={(ref) => this.container = ref}>
+      <div {...resolve(this.props, 'container')} ref={this.props.ref}>
         <SketchWrapper {...resolve(this.props, 'sketch')} config={config} sketch = { sketch } />
-        <Header classes = {classes}>paul j karlik | ui architect</Header>
-        <div {...resolve(this.props, 'section', 'base')}>
-          <div {...resolve(this.props, 'content')}>
-            <div className = {classes.threefour}>
-              <h3>Hello,<br />I'm Paul!</h3>
-              <p>
-                I am a User Interface Architect, Front-End Developer and Creative Technologist.
-                <br/><br/>
-                I create unique interfaces, mix art and technology and explore visual design in code. Current skills
-                include HTML/CSS/LESS, JavaScript/ES6, React, Redux, Webpack, CSS Modules and Node.
-                <br/><br/>
-                ...also enjoys other languages and platforms such as Processing, Arduino and Raspberry Pi.
-              </p>
-            </div>
-            <div {...resolve(this.props, 'onethird', 'right')}>
-              <h4>Simplex Noise</h4>
-              <p>
-                The background you see above is a visualization of simplex noise. The function takes the vector points
-                of the grid, and though a set of computations results in an ever changing data set. Each color is
-                created by the application of sine/cosine waves based on that data set.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div {...resolve(this.props, 'section', 'accent')}>
-          <div {...resolve(this.props, 'logoThumb', 'bottom')}>&nbsp;</div>
-          <div className = {classes.content}>
-            <div className = {classes.datcontainer} ref={(ref) => this.datwindow = ref} />
-            <div {...resolve(this.props, 'onethird')}>
-              <h4>p5.js interactive sketch</h4>
-                <p>
-                  Interact with the p5.js sketch with the attached dat.gui. These are just some of
-                  the properties that can effect the visual outcome of the waveform.
-                  <br /><br /><br /><br /><br /><br /><br />
-                  <br /><br /><br /><br /><br /><br /><br />
-                  <br /><br /><br /><br /><br /><br /><br />
-                </p>
-              </div>
-          </div>
-        </div>
-        <Header classes = {classes}>connections and resources</Header>
-        <div {...resolve(this.props, 'section', 'base')}>
+
+        <Cap direction = {'top'} classes = {classes} />
+
+        <ContentSplash classes = {classes} sectionHeight = {this.state.height} />
+
+        <Cap direction = {'bottom'} classes = {classes} />
+
+        <ContentGui
+          classes = {classes}
+          sectionHeight = {this.state.height}
+          config={config}
+          setOptions={this.setOptions}
+        />
+
+        <Cap direction = {'top'} classes = {classes} />
+
+        <div {...resolve(this.props, 'section', 'base')} style = {sectionHeight}>
           <div {...resolve(this.props, 'content')}>
             <div className = {classes.threefour}>
               <p>
@@ -227,8 +167,10 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-        <div {...resolve(this.props, 'section', 'accent')}>
-          <div {...resolve(this.props, 'logoThumb', 'bottom')}>&nbsp;</div>
+
+        <Cap direction = {'bottom'} classes = {classes} />
+
+        <div {...resolve(this.props, 'section', 'accent')} ref={(ref) => this.section3 = ref} style = {sectionHeight}>
           <div {...resolve(this.props, 'content')}>
             <h3></h3>
             <p>
@@ -239,6 +181,7 @@ class Home extends React.Component {
           <br /><br /><br /><br /><br /><br /><br />
           <br /><br /><br /><br /><br /><br /><br />
         </div>
+
       </div>
     );
   }
