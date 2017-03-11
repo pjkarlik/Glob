@@ -86,7 +86,7 @@ export default function sketch (p) {
     p.viewPort();
 
     // fix into position to draw grid
-    p.translate(-width_half, -(spacing * length), 100);
+    p.translate(-width_half, -(spacing * length), -100);
 
     for (var j = 0; j < spacing * 2; j++) {
       for (var i = 0; i < spacing; i++) {
@@ -125,7 +125,7 @@ export default function sketch (p) {
           generator.simplex3(iteration * i,
             iteration * j + timeStop, timeNoise * waveSpeed)
           ) * strength;
-        var zVector = nPoint * 10;
+        var zVector = Math.round(nPoint * 10);
         vertices[i][j] = {
           n: zVector
         };
@@ -182,7 +182,7 @@ export default function sketch (p) {
   p.shader = function(noise, i, j){
     switch(shaderType) {
       case 'editor':
-        r = 55 + Math.cos(noise * 2 * Math.PI / 180 - (time * 0.005)) * 155;
+        r = Math.round(155 + Math.cos(noise * 2 * Math.PI / 180 - (time * 0.005)) * 155);
         b = r;
         g = b;
         op = objectType === 'box' ? 255 : 155;

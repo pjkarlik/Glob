@@ -5,9 +5,15 @@ import { connect } from 'react-redux';
 
 import { setSiteState } from '../redux/modules/site';
 import SketchWrapper from '../components/SketchWrapper';
+import Badge from '../components/Badge';
+import BadgeStyle from '../components/Badge.less';
+// start content...
 import ContentSplash from './ContentHomeSplash';
 import ContentGui from './ContentHomeGui';
-
+// import ContentSketch from './ContentHomeSketch';
+// import ContentContact from './ContentHomeContact';
+import ContentBlank from './ContentBlank';
+// end content..
 import SiteStyles from '../styles/Site.less';
 
 import sketch from '../sketches/Simplex_p5';
@@ -30,6 +36,7 @@ class Home extends React.Component {
   static displayName = 'Home';
   static propTypes = {
     classes: React.PropTypes.object,
+    style: React.PropTypes.object,
     ref: React.PropTypes.object,
     /** Router Props **/
     router: React.PropTypes.shape({
@@ -56,6 +63,9 @@ class Home extends React.Component {
       tempZoom: -50,
       shaderType: 'splash',
       objectType: 'plane',
+      height: 0,
+      top: 0,
+      scrollTop: 0,
     };
   }
 
@@ -92,20 +102,25 @@ class Home extends React.Component {
         shaderType: 'splash',
         tempZoom: -50,
         background: [0, 0, 0],
+        scrollTop: top,
       });
-    }
-    if (top > height && top < height * 2) {
+    } else if (top > height && top < (height * 1.5)) {
       this.setState({
         shaderType: 'editor',
         tempZoom: -1550,
-        background: [255, 255, 255],
+        background: [225, 225, 225],
+        scrollTop: top,
       });
-    }
-    if (top > (height * 2) + 300) {
+    } else if (top > (height * 1.5)) {
       this.setState({
         shaderType: 'outro',
         tempZoom: -500,
         background: [40, 90, 90],
+        scrollTop: top,
+      });
+    } else {
+      this.setState({
+        scrollTop: top,
       });
     }
   };
@@ -116,72 +131,57 @@ class Home extends React.Component {
     const config = {
       ...this.state,
     };
-    const sectionHeight = { height: this.state.height };
+    // <Cap direction = {'bottom'} classes = {classes} />
+    // <Cap direction = {'top'} classes = {classes} />
+    const panel1Top = { top: `-${this.state.scrollTop}px` };
+    const panel2Top = { top: `-${this.state.scrollTop / 2}px` };
+    const panel3Top = { top: `-${this.state.scrollTop / 3}px` };
+
     return (
-      <div {...resolve(this.props, 'container')} ref={this.props.ref}>
-        <SketchWrapper {...resolve(this.props, 'sketch')} config={config} sketch = { sketch } />
-
-        <Cap direction = {'top'} classes = {classes} />
-
-        <ContentSplash classes = {classes} sectionHeight = {this.state.height} />
-
-        <Cap direction = {'bottom'} classes = {classes} />
-
-        <ContentGui
-          classes = {classes}
-          sectionHeight = {this.state.height}
-          config={config}
-          setOptions={this.setOptions}
-        />
-
-        <Cap direction = {'top'} classes = {classes} />
-
-        <div {...resolve(this.props, 'section', 'base')} style = {sectionHeight}>
-          <div {...resolve(this.props, 'content')}>
-            <div className = {classes.threefour}>
-              <p>
-                p5.js is a JavaScript library that is based off the Processing language. Processing itself is a language
-                for coding complex interactions within the context of the visual arts. More about processing at
-                <a href="http://p5js.org" target="_blank">{'http://p5js.org'}</a>
-                <br /><br />
-                This sketch is a visualization of dynamic data points produced by a simplex noise. That is
-                an n-dimensional noise function. Simplex noise divides the space into dimensional triangles.
-                Each simplex vertex is added back to the base coordinate and hashed into a pseudo-random gradient
-                direction. Read more about
-                <a href="https://en.wikipedia.org/wiki/Simplex_noise" target="_blank">simplex noise</a>
-                here..
-                Using time as a variable, we step though the animations evolving dataset.
-                The colors are produced by running a sine and cosine formula for each point on this moving grid.
-                <br /><br />
-                Using React.js and Redux I've also created and a wrapper component that loads and executes the p5.js
-                sketch inside it's lifecycle. This let's us to cool things between unique running frameworks.
-              </p>
-            </div>
-            <div {...resolve(this.props, 'onethird', 'right')}>
-              <h4>Simplex Noise</h4>
-              <p>
-                The background you see above is a visualization of simplex noise. The function takes the vector points
-                of the grid, and though a set of computations results in an ever changing data set. Each color is
-                created by the application of sine/cosine waves based on that data set.
-              </p>
-            </div>
-          </div>
+      <div {...resolve(this.props, 'container')} ref={(ref) => this.container = ref }>
+        <div key="panel_0"
+          ref={(ref) => this.panel0 = ref }
+          {...resolve(this.props, 'panel', 'fixed')}
+        >
+          <SketchWrapper {...resolve(this.props, 'sketch')} config={config} sketch = { sketch } />
+        </div>
+        <div key="panel_1"
+          ref={(ref) => this.panel1 = ref }
+          {...resolve(this.props, 'panel', 'one')}
+          style = {panel1Top}
+        >
+          <ContentBlank classes = {classes} sectionHeight = {this.state.height} />
+          <Cap direction = {'top'} classes = {classes} />
+          <ContentSplash classes = {classes} sectionHeight = {this.state.height} />
+          <Cap direction = {'bottom'} classes = {classes} />
         </div>
 
-        <Cap direction = {'bottom'} classes = {classes} />
-
-        <div {...resolve(this.props, 'section', 'accent')} ref={(ref) => this.section3 = ref} style = {sectionHeight}>
-          <div {...resolve(this.props, 'content')}>
-            <h3></h3>
-            <p>
-            </p>
-          </div>
-          <br /><br /><br /><br /><br /><br /><br />
-          <br /><br /><br /><br /><br /><br /><br />
-          <br /><br /><br /><br /><br /><br /><br />
-          <br /><br /><br /><br /><br /><br /><br />
+        <div key="panel_2"
+          ref={(ref) => this.panel2 = ref }
+          {...resolve(this.props, 'panel', 'two')}
+          style = {panel2Top}
+        >
+          <ContentBlank classes = {classes} sectionHeight = {this.state.height}>
+            <Badge classes = {BadgeStyle} />
+          </ContentBlank>
+          <ContentBlank classes = {classes} sectionHeight = {this.state.height / 2} />
+            <ContentGui
+              classes = {classes}
+              sectionHeight = {this.state.height}
+              config={config}
+              modifier = {'accent'}
+              setOptions={this.setOptions}
+            />
+          <ContentBlank classes = {classes} sectionHeight = {this.state.height * 2} />
         </div>
 
+        <div key="panel_3"
+          ref={(ref) => this.panel3 = ref }
+          {...resolve(this.props, 'panel', 'three')}
+          style = {panel3Top}
+        >
+          <ContentBlank classes = {classes} sectionHeight = {this.state.height} />
+        </div>
       </div>
     );
   }

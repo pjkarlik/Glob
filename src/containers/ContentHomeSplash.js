@@ -5,6 +5,7 @@ export default class ContentBlock extends React.Component {
   static displayName = 'ContentBlock';
   static propTypes = {
     classes: React.PropTypes.object,
+    modifier: React.PropTypes.string,
     /** Modules Props **/
     sectionHeight: React.PropTypes.number,
     /** Redux Actions **/
@@ -13,29 +14,31 @@ export default class ContentBlock extends React.Component {
 
   /* eslint react/jsx-no-bind: 0 */
   render() {
-    const { classes, sectionHeight } = this.props;
-    const heightStyle = { height: sectionHeight / 2 };
+    const { classes, sectionHeight, modifier = 'splash' } = this.props;
+    const heightStyle = { height: sectionHeight };
     return (
-      <div {...resolve(this.props, 'section', 'base')} style = {heightStyle}>
-        <div {...resolve(this.props, 'content')}>
+      <div {...resolve(this.props, 'section', modifier)} style = {heightStyle}>
+        <div {...resolve(this.props, 'content')} style = {heightStyle}>
           <div className = {classes.threefour}>
-            <h3>Hello,<br />Im Paul!</h3>
-            <p>
-              I am a User Interface Architect, Front-End Developer and Creative Technologist.
+            <h3 className = {classes.headerrb}>
+              <span>H</span><span>e</span><span>l</span><span>l</span><span>o</span><span>,</span>
+              <br />
+              <span>I</span><span>m</span><span> P</span><span>a</span><span>u</span><span>l</span><span>!</span>
+            </h3>
+            <p className = {classes.copy}>
+              I am a User Interface Architect, Front-End Developer and Creative Technologist. I create unique
+              interfaces, mix art and technology and explore visual design in code. Current skills
+              include HTML/CSS/LESS, JavaScript/ES6, React, Redux, Webpack, CSS Modules, Processing, and Arduino.
+              To see more examples of work you should checkout my
+              &nbsp;<a href="https://github.com/pjkarlik" target="_blank">github page</a>.
               <br/><br/>
-              I create unique interfaces, mix art and technology and explore visual design in code. Current skills
-              include HTML/CSS/LESS, JavaScript/ES6, React, Redux, Webpack, CSS Modules and Node.
-              <br/><br/>
-              ...also enjoys other languages and platforms such as Processing, Arduino and Raspberry Pi.
+              ...this is my ever changing experiment and interactive portfolio. The background is p5.js running in a
+              React wrapper that allows communication between both frameworks. Scroll down to edit the waveform.
             </p>
           </div>
           <div {...resolve(this.props, 'onethird', 'right')}>
-            <h4>Simplex Noise</h4>
-            <p>
-              The background you see above is a visualization of simplex noise. The function takes the vector points
-              of the grid, and though a set of computations results in an ever changing data set. Each color is
-              created by the application of sine/cosine waves based on that data set.
-            </p>
+            <h4></h4>
+
           </div>
         </div>
       </div>

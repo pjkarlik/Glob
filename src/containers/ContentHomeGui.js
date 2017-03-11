@@ -7,6 +7,7 @@ export default class ContentBlock extends React.Component {
   static propTypes = {
     classes: React.PropTypes.object,
     config: React.PropTypes.object,
+    modifier: React.PropTypes.string,
     sectionHeight: React.PropTypes.number,
     setOptions: React.PropTypes.func,
   };
@@ -54,17 +55,17 @@ export default class ContentBlock extends React.Component {
   };
   /* eslint react/jsx-no-bind: 0 */
   render() {
-    const { classes, sectionHeight } = this.props;
+    const { classes, sectionHeight, modifier } = this.props;
     const heightStyle = { height: sectionHeight };
     return (
-      <div {...resolve(this.props, 'section', 'accent')} style = {heightStyle}>
-        <div className = {classes.content}>
+      <div {...resolve(this.props, 'section', modifier)} style = {heightStyle}>
+        <div className = {classes.content} style = {heightStyle}>
           <div className = {classes.datcontainer} ref={(ref) => { this.datwindow = ref; }} />
-          <div {...resolve(this.props, 'onethird')}>
-            <h4>p5.js interactive sketch</h4>
-              <p>
-                Interact with the p5.js sketch with the attached dat.gui. These are just some of
-                the properties that can effect the visual outcome of the waveform.
+          <div {...resolve(this.props, 'datinfo')}>
+            <h4 className = {classes.subheader}>p5.js sketch</h4>
+              <p className = {classes.description}>
+                You can interact with noise waveform by editing the attached dat.gui. These are just some of
+                the variables that can effect the visual outcome of the waveform.
               </p>
             </div>
         </div>

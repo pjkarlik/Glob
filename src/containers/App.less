@@ -1,4 +1,5 @@
 @import (reference) '../styles/Variables.less';
+@import (reference) '../styles/MediaQuery.less';
 
 :global {
   html,
@@ -11,6 +12,12 @@
 
   html {
     font-size: 100%;
+    @media @medium {
+      font-size: 80%;
+    }
+    @media @small {
+      font-size: 65%;
+    }
   }
 
   body {

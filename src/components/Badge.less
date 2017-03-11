@@ -13,29 +13,44 @@
 // Lower Badge Styles //
 .badge {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 0.938em 1.25em 1.25em;
+  top: 75%;
+  transform: translateY(-50%);
+  right: 20px;
+  padding: 0;
   text-align: right;
   z-index: 999;
-
-  h3 {
-    color: @white;
-    display: inline-block;
-    font-family: @headerFont;
-    font-size: 1.25em;
-    line-height: .989em;
-    margin: 0;
-    padding: 0 .15em 0 .125em;
-  }
-
-  p {
-    color: @white;
-    display: inline-block;
-    font-family: @headerFont;
-    font-size: .75em;
-    margin: 0;
-    padding-bottom: 0.188em;
-    vertical-align: bottom;
-  }
 }
+
+.header {
+  color: @white;
+  display: inline-block;
+  font-family: @headerFont;
+  font-size: 5em;
+  margin: .125em 0 0;
+  padding: 0 .15em 0 .35em;
+}
+
+.tagline {
+  color: @white;
+  display: inline-block;
+  font-family: @headerFont;
+  font-size: 1em;
+  line-height: 1.2;
+  margin: 0 0 12px;
+  vertical-align: bottom;
+}
+
+
+@nuColor1: #cb071f;
+@nuColor2: #5f9825;
+@nuColor3: #3c7f90;
+
+@iterations: 3;
+.header-loop (@i) when (@i > 0) {
+  @colour: ~"@{nuColor@{i}}";
+  .header span:nth-child(@{i}) {
+    color: @colour;
+  }
+  .header-loop (@i - 1)
+}
+.header-loop (@iterations);

@@ -2,15 +2,19 @@
 @import (reference) '../styles/MediaQuery.less';
 
 @contentSize: 48em;
-@panelColor: @white;
+@panelColor: #BBB;
 @maltColor: @black;
 @headerColor: #333;
 @subheaderColor: #333;
 // Default Site Styles //
 .container {
-  height: 100%;
+  position: absolute;
   padding: 0;
   margin: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .sketch{
@@ -33,15 +37,20 @@
 @headerHeight: 20px;
 @accentBackground: rgba(0,0,0,0.2);
 .section{
+  box-sizing: border-box;
+  color: @grey;
   position: relative;
   width: 100%;
   &.base {
     background: @panelColor;
-    color: @grey;
+    color: @white;
+  }
+  &.splash {
+    background: @panelColor;
+    color: @black;
   }
   &.accent {
-    background: @accentBackground;
-    color: @white;
+    color: @black;
   }
   &.header {
     margin-top: -@headerHeight;
@@ -49,7 +58,6 @@
     text-align: right;
   }
   &.bottom {
-    background: @accentBackground;
     margin-top: 0;
     height: @headerHeight;
     text-align: left;
@@ -60,12 +68,56 @@
   }
 }
 
+.panel {
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  &.one {
+    z-index: 10;
+  }
+  &.two {
+    z-index: 9;
+  }
+  &.three {
+    z-index: 11;
+  }
+  &.fixed {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 5;
+  }
+}
+.profilePicture {
+    background: url('../../resources/images/profilepicture.png') no-repeat;
+    background-size: 100% 100%;
+    width: 200px;
+    height: 280px;
+    position: absolute;
+    right: 0;
+    bottom: -280px;
+}
+
 .datcontainer {
   width: 245px;
-  top: -10px;
+  top: 35px;
   position: absolute;
-  z-index: 100;
-  right: 0px;
+  z-index: 1;
+  left: 10px;
+  @media @small {
+    top: 100%;
+  }
+}
+.datinfo {
+  width: 33.33%;
+  bottom: 5px;
+  position: absolute;
+  right: 10px;
+  text-align: right;
+  @media @small {
+    bottom: 100%;
+  }
 }
 
 .logoThumb{
@@ -113,38 +165,49 @@
 }
 
 .content {
+  box-sizing: border-box;
   composes: flex;
   margin: 0 auto;
-  padding: 4.25em .625em;
+  padding: 4.25em .625em 0;
   max-width: @contentSize;
   position: relative;
 
   @media @medium {
     padding: 2.25em;
   }
-
-  h3 {
+  .headerrb {
     font-family: @headerFont;
     color: @headerColor;
-    font-size: 2em;
+    font-size: 3.5em;
     margin: 0;
     padding: 0;
   }
-  h4 {
-    font-family: @headerFont;
+  .subheader {
+    font-family: @maltFont;
     color: @subheaderColor;
     font-size: 1.25em;
-    margin: .875em 0 0;
+    margin: 0;
     padding: 0;
   }
-  p {
+  .copy {
     font-family: @contentFont;
-    font-size: .875em;
+    font-size: 1.125em;
     line-height: 1.7;
+    padding: 1.625em 0;
+    margin: 0;
+  }
+  .description {
+    font-family: @contentFont;
+    font-size: 1em;
+    line-height: 1.35;
     padding: .625em 0;
     margin: 0;
   }
+  a {
+    color: #3c7f90;
+  }
 }
+
 .column {
   flex: 1 1 auto;
 }
@@ -170,3 +233,23 @@
     }
   }
 }
+
+@nuColor1: #cb071f;
+@nuColor2: #e28015;
+@nuColor3: #f1cb28;
+@nuColor4: #5f9825;
+@nuColor5: #3c7f90;
+@nuColor6: #b007cb;
+@nuColor7: #e28015;
+@nuColor8: #483628;
+
+@iterations: 7;
+.header-loop (@i) when (@i > 0) {
+  @colour: ~"@{nuColor@{i}}";
+  .headerrb span:nth-child(@{i}) {
+    color: @colour;
+    font-weight: 700;
+  }
+  .header-loop (@i - 1)
+}
+.header-loop (@iterations);
