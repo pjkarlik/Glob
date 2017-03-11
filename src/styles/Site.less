@@ -89,34 +89,22 @@
     z-index: 5;
   }
 }
-.profilePicture {
-    background: url('../../resources/images/profilepicture.png') no-repeat;
-    background-size: 100% 100%;
-    width: 200px;
-    height: 280px;
-    position: absolute;
-    right: 0;
-    bottom: -280px;
-}
 
 .datcontainer {
   width: 245px;
-  top: 35px;
+  top: 45px;
   position: absolute;
   z-index: 1;
   left: 10px;
-  @media @small {
-    top: 100%;
-  }
 }
 .datinfo {
-  width: 33.33%;
+  width: 45%;
   bottom: 5px;
   position: absolute;
   right: 10px;
   text-align: right;
   @media @small {
-    bottom: 100%;
+    width: auto;
   }
 }
 
@@ -156,30 +144,22 @@
     }
   }
 }
-.flex {
-  display: flex;
-  align-items: flex-start;
-  @media @medium {
-    flex-direction: column;
-  }
-}
 
 .content {
   box-sizing: border-box;
-  composes: flex;
   margin: 0 auto;
   padding: 4.25em .625em 0;
   max-width: @contentSize;
   position: relative;
 
   @media @medium {
-    padding: 2.25em;
+    padding: 2.25em 3em;
   }
   .headerrb {
     font-family: @headerFont;
     color: @headerColor;
     font-size: 3.5em;
-    margin: 0;
+    margin: 1.5em 0 0 0;
     padding: 0;
   }
   .subheader {
@@ -195,6 +175,9 @@
     line-height: 1.7;
     padding: 1.625em 0;
     margin: 0;
+    @media @medium {
+      font-size: 1.25em;
+    }
   }
   .description {
     font-family: @contentFont;
@@ -204,7 +187,10 @@
     margin: 0;
   }
   a {
-    color: #3c7f90;
+    color: #b007cb;
+  }
+  @media @medium {
+    font-size: 1.125em;
   }
 }
 
@@ -253,3 +239,28 @@
   .header-loop (@i - 1)
 }
 .header-loop (@iterations);
+
+@size: 1.5em;
+@color: @grey;
+
+.robot {
+  position: absolute;
+  right: -20px;
+  bottom: -210px;
+
+  background: rgba(255,255,255,0);
+	display: inline-block;
+	height: @size;
+	margin-right: 12em;
+	margin-bottom: 10em;
+	width: @size;
+  box-shadow:
+    (1 * @size) (0 * @size) 0 transparent, (2 * @size) (0 * @size) 0 transparent, (3 * @size) (0 * @size) 0 @color, (4 * @size) (0 * @size) 0 @color, (5 * @size) (0 * @size) 0 @color, (6 * @size) (0 * @size) 0 transparent, (7 * @size) (0 * @size) 0 transparent,
+    (1 * @size) (1 * @size) 0 transparent, (2 * @size) (1 * @size) 0 @color, (3 * @size) (1 * @size) 0 transparent, (4 * @size) (1 * @size) 0 transparent, (5 * @size) (1 * @size) 0 transparent, (6 * @size) (1 * @size) 0 @color, (7 * @size) (1 * @size) 0 transparent,
+    (1 * @size) (2 * @size) 0 @color, (2 * @size) (2 * @size) 0 @color, (3 * @size) (2 * @size) 0 @color, (4 * @size) (2 * @size) 0 @color, (5 * @size) (2 * @size) 0 @color, (6 * @size) (2 * @size) 0 @color, (7 * @size) (2 * @size) 0 @color,
+    (1 * @size) (3 * @size) 0 @color, (2 * @size) (3 * @size) 0 transparent, (3 * @size) (3 * @size) 0 @color, (4 * @size) (3 * @size) 0 @color, (5 * @size) (3 * @size) 0 @color, (6 * @size) (3 * @size) 0 transparent, (7 * @size) (3 * @size) 0 @color,
+    (1 * @size) (4 * @size) 0 @color, (2 * @size) (4 * @size) 0 transparent, (3 * @size) (4 * @size) 0 @color, (4 * @size) (4 * @size) 0 @color, (5 * @size) (4 * @size) 0 @color, (6 * @size) (4 * @size) 0 transparent, (7 * @size) (4 * @size) 0 @color,
+    (1 * @size) (5 * @size) 0 transparent, (2 * @size) (5 * @size) 0 transparent, (3 * @size) (5 * @size) 0 @color, (4 * @size) (5 * @size) 0 transparent, (5 * @size) (5 * @size) 0 @color, (6 * @size) (5 * @size) 0 transparent, (7 * @size) (5 * @size) 0 transparent,
+    (1 * @size) (6 * @size) 0 transparent, (2 * @size) (6 * @size) 0 transparent, (3 * @size) (6 * @size) 0 @color, (4 * @size) (6 * @size) 0 transparent, (5 * @size) (6 * @size) 0 @color, (6 * @size) (6 * @size) 0 transparent, (7 * @size) (6 * @size) 0 transparent,
+    (1 * @size) (7 * @size) 0 transparent, (2 * @size) (7 * @size) 0 @color, (3 * @size) (7 * @size) 0 @color, (4 * @size) (7 * @size) 0 transparent, (5 * @size) (7 * @size) 0 @color, (6 * @size) (7 * @size) @color, (7 * @size) (7 * @size) 0 transparent;
+}

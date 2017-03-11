@@ -64,8 +64,8 @@ export default class ContentBlock extends React.Component {
           <div {...resolve(this.props, 'datinfo')}>
             <h4 className = {classes.subheader}>p5.js sketch</h4>
               <p className = {classes.description}>
-                You can interact with noise waveform by editing the attached dat.gui. These are just some of
-                the variables that can effect the visual outcome of the waveform.
+                You can interact with simplex waveform by editing the dat.gui. Code for this demo at&nbsp;
+                <a href="https://github.com/pjkarlik/p5js" target="_blank">github.com/pjkarlik/p5js</a>.
               </p>
             </div>
         </div>
