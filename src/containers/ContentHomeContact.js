@@ -13,13 +13,15 @@ export default class ContentBlock extends React.Component {
 
   /* eslint react/jsx-no-bind: 0 */
   render() {
-    const { sectionHeight } = this.props;
+    const { classes, sectionHeight } = this.props;
     const heightStyle = { height: sectionHeight };
     return (
-      <div {...resolve(this.props, 'section', 'accent')} ref={(ref) => this.section3 = ref} style = {heightStyle}>
+      <div {...resolve(this.props, 'section', 'base')} ref={(ref) => this.section3 = ref} style = {heightStyle}>
         <div {...resolve(this.props, 'content')} style = {heightStyle}>
-          <h3></h3>
-          <p>
+          <h3 className = {classes.headerrb}>
+            <span>C</span><span>o</span><span>n</span><span>t</span><span>a</span><span>c</span><span>t</span>
+          </h3>
+          <p>Something listed here about contact and links to and from something.
           </p>
         </div>
       </div>

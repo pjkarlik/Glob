@@ -22,7 +22,7 @@ export default class SketchWrapper extends React.Component {
   componentDidMount() {
     const { sketch } = this.props;
     this.handleSketch(sketch);
-    this.handleconfig(this.props.config);
+    this.handleSetOptions(this.props.config);
   }
 
   componentWillReceiveProps(newProps) {
@@ -32,7 +32,7 @@ export default class SketchWrapper extends React.Component {
       this.handleSketch();
     }
     if (config !== newProps.config) {
-      this.handleconfig(newProps.config);
+      this.handleSetOptions(newProps.config);
     }
   }
 
@@ -47,11 +47,18 @@ export default class SketchWrapper extends React.Component {
    * Sends an object into the setOptions functions of the p5js sketch.
    * @param {Object} config
    */
-  handleconfig = (newConfig) => {
+  handleSetOptions = (newConfig) => {
     const { config } = this.props;
     this.myp5.setOptions(newConfig || config);
   }
-
+  /**
+   * Gets an object from the getOptions functions of the p5js sketch.
+   * @return {Object}
+   */
+  handleGetOptions = () => {
+    const config = this.myp5.getOptions();
+    return config;
+  }
   /**
    * Loads a p5js sketch into the div wrapper.
    * @param {Function} sketch

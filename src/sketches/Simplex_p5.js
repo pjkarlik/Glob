@@ -58,16 +58,22 @@ export default function sketch (p) {
     strength = config.strength || strength;
     iteration = config.iteration / 100 || iteration;
     speed = config.speed || speed;
-    waveSpeed = config.waveSpeed / 100000 || waveSpeed;
+    waveSpeed = config.waveSpeed / 10000 || waveSpeed;
     tempZoom = config.tempZoom || tempZoom;
     background = config.background || background;
-    // return {
-    //   shaderType,
-    //   iteration,
-    //   speed,
-    //   strength,
-    //   tempZoom,
-    // };
+  }
+
+  p.getOptions = function(config) {
+    return {
+      shaderType,
+      objectType,
+      strength,
+      iteration,
+      speed,
+      waveSpeed,
+      tempZoom,
+      background,
+    };
   }
 
   p.draw = function() {
@@ -87,18 +93,19 @@ export default function sketch (p) {
 
     // fix into position to draw grid
     p.translate(-width_half, -(spacing * length), -100);
-
+    lastHigh = 0;
     for (var j = 0; j < spacing * 2; j++) {
       for (var i = 0; i < spacing; i++) {
         // generate noise values and shader colors
         var noiseValue = (vertices[i][j].n) * 0.3;
         var colorset = p.shader(vertices[i][j].n, i, j);
-        if (vertices[i][j].n > lastHigh && j % 20 == 0) {
+        var translateZ = -(noiseValue * 2);
+        if (vertices[i][j].n > lastHigh) {
           lastHigh = vertices[i][j].n;
         }
         // push and move 3D object into place
         p.push();
-        p.translate(i * size, j * length - spacer, -(noiseValue * 2));
+        p.translate(i * size, j * length - spacer, translateZ);
         p.ambientMaterial(colorset.r, colorset.g, colorset.b, colorset.op);
         switch (objectType) {
           case 'plane':
@@ -106,6 +113,9 @@ export default function sketch (p) {
             break;
           case 'box':
             p.box(size, length, length);
+            break;
+          case 'sphere':
+            p.sphere((1 + (noiseValue * .25)), 6);
             break;
           default:
             p.plane(size,length);
@@ -152,11 +162,11 @@ export default function sketch (p) {
 
   p.checkForChange = function() {
     if (p.random(1,255) > 245 && !timeout) {
-      tempX = width_half - (width - p.random(1, width * 2)) * .8;
+      tempX = width_half - (width - p.random(1, width * 2)) * .65;
       p.pauseChange();
     }
-    if (p.random(1,255) > 245 && !timeout) {
-      tempY = height_half - (lastHigh / 10) - (60 - p.random(1, 120));
+    if (p.random(1,255) > 240 && !timeout) {
+      tempY = (lastHigh / 3.5) + (30 - p.random(1, 60));
       p.pauseChange();
     }
   };
@@ -167,11 +177,6 @@ export default function sketch (p) {
     camX = (width_half - thisX) * 0.006;
     camY = (height_half - thisY) * 0.008;
   };
-  //
-  // p.mouseWheel = function(event) {
-  //   zoom += event.delta;
-  //   return false;
-  // };
 
   p.lighting = function()  {
     p.directionalLight(250, 250, 250, 255, 1, 0, -1);

@@ -92,11 +92,12 @@
 
 .datcontainer {
   width: 245px;
-  top: 45px;
+  top: 65px;
   position: absolute;
   z-index: 1;
   left: 10px;
 }
+
 .datinfo {
   width: 45%;
   bottom: 5px;
@@ -159,7 +160,8 @@
     font-family: @headerFont;
     color: @headerColor;
     font-size: 3.5em;
-    margin: 1.5em 0 0 0;
+    line-height: 1.2;
+    margin: .5em 0 0 0;
     padding: 0;
   }
   .subheader {
@@ -194,32 +196,8 @@
   }
 }
 
-.column {
-  flex: 1 1 auto;
-}
-
-.threefour {
-  composes: column;
-  max-width:66.66%;
-  @media @medium {
-    max-width:100%;
-  }
-}
-
-.onethird {
-  composes: column;
-  max-width: 33.33%;
-  @media @medium {
-    max-width:100%;
-  }
-  &.right {
-    text-align: right;
-    @media @medium {
-      text-align: left;
-    }
-  }
-}
-
+// Create nth child classes for spans in header-loop to
+// make a ranbow effect.
 @nuColor1: #cb071f;
 @nuColor2: #e28015;
 @nuColor3: #f1cb28;
@@ -239,28 +217,3 @@
   .header-loop (@i - 1)
 }
 .header-loop (@iterations);
-
-@size: 1.5em;
-@color: @grey;
-
-.robot {
-  position: absolute;
-  right: -20px;
-  bottom: -210px;
-
-  background: rgba(255,255,255,0);
-	display: inline-block;
-	height: @size;
-	margin-right: 12em;
-	margin-bottom: 10em;
-	width: @size;
-  box-shadow:
-    (1 * @size) (0 * @size) 0 transparent, (2 * @size) (0 * @size) 0 transparent, (3 * @size) (0 * @size) 0 @color, (4 * @size) (0 * @size) 0 @color, (5 * @size) (0 * @size) 0 @color, (6 * @size) (0 * @size) 0 transparent, (7 * @size) (0 * @size) 0 transparent,
-    (1 * @size) (1 * @size) 0 transparent, (2 * @size) (1 * @size) 0 @color, (3 * @size) (1 * @size) 0 transparent, (4 * @size) (1 * @size) 0 transparent, (5 * @size) (1 * @size) 0 transparent, (6 * @size) (1 * @size) 0 @color, (7 * @size) (1 * @size) 0 transparent,
-    (1 * @size) (2 * @size) 0 @color, (2 * @size) (2 * @size) 0 @color, (3 * @size) (2 * @size) 0 @color, (4 * @size) (2 * @size) 0 @color, (5 * @size) (2 * @size) 0 @color, (6 * @size) (2 * @size) 0 @color, (7 * @size) (2 * @size) 0 @color,
-    (1 * @size) (3 * @size) 0 @color, (2 * @size) (3 * @size) 0 transparent, (3 * @size) (3 * @size) 0 @color, (4 * @size) (3 * @size) 0 @color, (5 * @size) (3 * @size) 0 @color, (6 * @size) (3 * @size) 0 transparent, (7 * @size) (3 * @size) 0 @color,
-    (1 * @size) (4 * @size) 0 @color, (2 * @size) (4 * @size) 0 transparent, (3 * @size) (4 * @size) 0 @color, (4 * @size) (4 * @size) 0 @color, (5 * @size) (4 * @size) 0 @color, (6 * @size) (4 * @size) 0 transparent, (7 * @size) (4 * @size) 0 @color,
-    (1 * @size) (5 * @size) 0 transparent, (2 * @size) (5 * @size) 0 transparent, (3 * @size) (5 * @size) 0 @color, (4 * @size) (5 * @size) 0 transparent, (5 * @size) (5 * @size) 0 @color, (6 * @size) (5 * @size) 0 transparent, (7 * @size) (5 * @size) 0 transparent,
-    (1 * @size) (6 * @size) 0 transparent, (2 * @size) (6 * @size) 0 transparent, (3 * @size) (6 * @size) 0 @color, (4 * @size) (6 * @size) 0 transparent, (5 * @size) (6 * @size) 0 @color, (6 * @size) (6 * @size) 0 transparent, (7 * @size) (6 * @size) 0 transparent,
-    (1 * @size) (7 * @size) 0 transparent, (2 * @size) (7 * @size) 0 @color, (3 * @size) (7 * @size) 0 @color, (4 * @size) (7 * @size) 0 transparent, (5 * @size) (7 * @size) 0 @color, (6 * @size) (7 * @size) @color, (7 * @size) (7 * @size) 0 transparent;
-}

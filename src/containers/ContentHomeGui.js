@@ -30,23 +30,23 @@ export default class ContentBlock extends React.Component {
         this.config.iteration = value;
         this.setOptions({ iteration: value });
       });
-    folderRender.add(this.config, 'strength', 10, 80).step(1)
+    folderRender.add(this.config, 'strength', 1, 100).step(1)
       .onFinishChange((value) => {
         this.config.strength = value;
         this.setOptions({ strength: value });
       });
-    folderRender.add(this.config, 'speed', 0, 100).step(1)
+    folderRender.add(this.config, 'speed', 1, 100).step(1)
       .onFinishChange((value) => {
         this.config.speed = value;
         this.setOptions({ speed: value });
       });
-    folderRender.add(this.config, 'waveSpeed', 50, 600).step(1)
+    folderRender.add(this.config, 'waveSpeed', 1, 100).step(1)
       .onFinishChange((value) => {
         this.config.waveSpeed = value;
         this.setOptions({ waveSpeed: value });
       });
     folderRender.add(this.config, 'objectType',
-    ['plane', 'box'])
+    ['plane', 'box', 'sphere'])
     .onFinishChange((value) => {
       this.config.objectType = value;
       this.setOptions({ objectType: value });

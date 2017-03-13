@@ -11,7 +11,7 @@ import BadgeStyle from '../components/Badge.less';
 import ContentSplash from './ContentHomeSplash';
 import ContentGui from './ContentHomeGui';
 // import ContentSketch from './ContentHomeSketch';
-// import ContentContact from './ContentHomeContact';
+import ContentContact from './ContentHomeContact';
 import ContentBlank from './ContentBlank';
 // end content..
 import SiteStyles from '../styles/Site.less';
@@ -59,7 +59,7 @@ class Home extends React.Component {
       iteration: (40 + Math.random() * 30) / 10,
       strength: (25 + Math.random() * 15),
       speed: (5 + Math.random() * 15),
-      waveSpeed: 100,
+      waveSpeed: 10,
       tempZoom: -50,
       shaderType: 'splash',
       objectType: 'plane',
@@ -173,6 +173,8 @@ class Home extends React.Component {
               setOptions={this.setOptions}
             />
           <ContentBlank classes = {classes} sectionHeight = {this.state.height * 2} />
+          <Cap direction = {'top'} classes = {classes} />
+          <ContentContact classes = {classes} sectionHeight = {this.state.height} />
         </div>
 
         <div key="panel_3"
