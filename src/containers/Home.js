@@ -96,33 +96,32 @@ class Home extends React.Component {
   checkPosition = () => {
     const { height } = this.state;
     const top = document.body.scrollTop;
-    // zone settings
+
+    let options = {};
+
     if (top < height) {
-      this.setState({
+      options = {
         shaderType: 'splash',
         tempZoom: -50,
         background: [0, 0, 0],
-        scrollTop: top,
-      });
+      };
     } else if (top > height && top < (height * 1.5)) {
-      this.setState({
+      options = {
         shaderType: 'editor',
         tempZoom: -1550,
         background: [225, 225, 225],
-        scrollTop: top,
-      });
+      };
     } else if (top > (height * 1.5)) {
-      this.setState({
+      options = {
         shaderType: 'outro',
         tempZoom: -500,
         background: [40, 90, 90],
-        scrollTop: top,
-      });
-    } else {
-      this.setState({
-        scrollTop: top,
-      });
+      };
     }
+    this.setState({
+      ...options,
+      scrollTop: top,
+    });
   };
 
   /* eslint react/jsx-no-bind: 0 */

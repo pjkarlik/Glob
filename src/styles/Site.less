@@ -149,9 +149,12 @@
 .content {
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 4.25em .625em 0;
+  padding: 0 .625em 0;
   max-width: @contentSize;
   position: relative;
+  justify-content: center;
+  display: flex;
+  flex-flow: column;
 
   @media @medium {
     padding: 2.25em 3em;
@@ -194,6 +197,57 @@
   @media @medium {
     font-size: 1.125em;
   }
+}
+
+.iconButtons {
+  flex-flow: row;
+}
+.codebutton {
+  box-sizing: border-box;
+  display: inline-block;
+  text-indent: -9999px;
+  transition: all 300ms linear;
+  border-radius: 50%;
+  // never do this... //
+  &:hover {
+    background-color: #FFF;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+}
+
+.codebutton + .codebutton {
+  margin-left: .625em;
+}
+
+@size: 6.75em;
+.github {
+  background: url('../../resources/images/github_logo.png') no-repeat center;
+  height: @size;
+  width:@size;
+}
+
+.codepen {
+  background: url('../../resources/images/codepen_logo.png') no-repeat center;
+  height: @size;
+  width: @size;
+}
+
+.twitter {
+  background: url('../../resources/images/twitter_logo.png') no-repeat center;
+  height: @size;
+  width: @size;
+}
+
+.soundcloud {
+  background: url('../../resources/images/soundcloud_logo.png') no-repeat center;
+  height: @size;
+  width: @size;
+}
+
+.google {
+  background: url('../../resources/images/google_logo.png') no-repeat center;
+  height: @size;
+  width: @size;
 }
 
 // Create nth child classes for spans in header-loop to
