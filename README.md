@@ -1,7 +1,7 @@
-# Glob - ERRRRR React Interface
+# Glob - p5js/React
 
-  Temp demo site / page for mixing p5js into react components. This is becoming a quick prototype for a personal
-  portfolio page.
+  What started off as a navigation project turned into a quick demo portfolio site using p5.js / react / css-modules
+  that demonstrate parallax scrolling, dynamic page size and p5js sketch that talks to the react state.
 
 ## Change Log
   * Redux state for infoBox - switch color theme of p5js sketch

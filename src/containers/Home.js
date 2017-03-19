@@ -10,7 +10,7 @@ import BadgeStyle from '../components/Badge.less';
 // start content...
 import ContentSplash from './ContentHomeSplash';
 import ContentGui from './ContentHomeGui';
-// import ContentSketch from './ContentHomeSketch';
+import ContentSketch from './ContentHomeSketch';
 import ContentContact from './ContentHomeContact';
 import ContentBlank from './ContentBlank';
 // end content..
@@ -181,7 +181,12 @@ class Home extends React.Component {
           {...resolve(this.props, 'panel', 'three')}
           style = {panel3Top}
         >
-          <ContentBlank classes = {classes} sectionHeight = {this.state.height} />
+          <ContentBlank classes = {classes} sectionHeight = {this.state.height * 3.25} />
+          <ContentSketch
+            modifier = {'highlight'}
+            classes = {classes}
+            sectionHeight = {this.state.height}
+          />
         </div>
       </div>
     );

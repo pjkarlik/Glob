@@ -52,6 +52,12 @@
   &.accent {
     color: @black;
   }
+  &.highlight {
+    color: @white;
+    & a {
+      color: @white;
+    }
+  }
   &.header {
     margin-top: -@headerHeight;
     height: @headerHeight;
@@ -182,6 +188,14 @@
     margin: 0;
     @media @medium {
       font-size: 1.25em;
+    }
+  }
+  .signature {
+    text-align: right;
+    font-family: @maltFont;
+    margin: 0 0 .625em 0;
+    b {
+      font-size: 2em;
     }
   }
   .description {

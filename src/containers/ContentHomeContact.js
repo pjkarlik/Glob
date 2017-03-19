@@ -22,8 +22,13 @@ export default class ContentBlock extends React.Component {
             <span>C</span><span>o</span><span>n</span><span>t</span><span>a</span><span>c</span><span>t</span>
           </h3>
           <p className = {classes.copy}>
-            Interested in seeing more of my work, or checking out some of my raw source code? Just click the links
-            below to visit my current work and experiments.
+            Interested in seeing more of my development work, or just want to checking out some of my raw source code?
+            Just click any of the links below to visit my other works, experiments, music and social media feeds.
+          </p>
+          <p className = {classes.signature}>
+            Thanks for visiting!
+            <br/>
+            <b>Paul J Karlik</b>
           </p>
           <div className = {classes.iconButtons}>
             <a {...resolve(this.props, 'codebutton', 'github')}
