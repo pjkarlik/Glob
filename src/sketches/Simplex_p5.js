@@ -18,7 +18,7 @@ export default function sketch (p) {
   var strength = ~~(p.random(25,50));
   var speed = ~~(p.random(100,600) / grid);
   var waveSpeed = p.random(15,40) / 10000;
-  var objectType = 'plane';
+  var objectType;
   var shaderType = 'isClose';
   // setting color vars
   var r = 0, g = 0, b = 0, op = 0;
@@ -27,7 +27,7 @@ export default function sketch (p) {
   // setting items for movement
   var timeout = false;
   var zOffset = 0, offsetX = 0, offsetY = 0;
-  var zoom = -50;
+  var zoom = 50;
   var tempZoom = zoom;
   var camX = width_half, camY = height_half;
   var tempX = width_half, tempY = height_half;
@@ -167,7 +167,7 @@ export default function sketch (p) {
       p.pauseChange();
     }
     if (p.random(1,255) > 220 && !timeout) {
-      tempY = (90 + (lastHigh / 5)) + (40 - p.random(1, 80));
+      tempY = (92 + (lastHigh / 4)) + (40 - p.random(1, 80));
       console.log(`New Y: ${tempY}`);
       p.pauseChange();
     }
@@ -195,8 +195,8 @@ export default function sketch (p) {
         op = objectType === 'plane' ? 155 : 255;
         break;
       case 'outro':
-        r = Math.cos(noise * Math.PI / 180 + (time * 0.02)) * 255;
-        b = 255 - Math.cos(2 + noise * 2 * Math.PI / 360) * 255;
+        r = Math.cos(noise * 2 * Math.PI / 180 + (time * 0.01)) * 255;
+        b = 255 - Math.sin(1 + noise * 2 * Math.PI / 360) * 255;
         g = b;
         op = objectType === 'box' ? 50 : 75;
         break;

@@ -55,14 +55,16 @@ class Home extends React.Component {
 
   constructor(props) {
     super(props);
+    const rndTypes = ['plane', 'box', 'sphere'];
+    const randomNumber = Math.round(Math.random() * (2 - 0) + 0);
     this.state = {
       iteration: (40 + Math.random() * 30) / 10,
       strength: (25 + Math.random() * 15),
-      speed: (5 + Math.random() * 15),
+      speed: (5 + Math.random() * 25),
       waveSpeed: 10,
-      tempZoom: -50,
+      tempZoom: -75,
       shaderType: 'splash',
-      objectType: 'plane',
+      objectType: rndTypes[randomNumber],
       height: 0,
       top: 0,
       scrollTop: 0,
@@ -80,9 +82,12 @@ class Home extends React.Component {
   }
 
   setSizes = () => {
+    const width = (document.documentElement.clientWidth, window.innerWidth || 0);
+    const height = (document.documentElement.clientHeight, window.innerHeight || 0);
+
     this.setState({
-      width: (document.documentElement.clientWidth, window.innerWidth || 0),
-      height: (document.documentElement.clientHeight, window.innerHeight || 0),
+      width,
+      height,
     });
   }
 
@@ -99,9 +104,15 @@ class Home extends React.Component {
 
     let options = {};
 
-    if (top < height) {
+    if (top < height / 2) {
       options = {
         shaderType: 'splash',
+        tempZoom: -75,
+        background: [0, 0, 0],
+      };
+    } else if (top > height / 2 && top < height) {
+      options = {
+        shaderType: 'editor',
         tempZoom: -50,
         background: [0, 0, 0],
       };
@@ -132,18 +143,22 @@ class Home extends React.Component {
     };
     // <Cap direction = {'bottom'} classes = {classes} />
     // <Cap direction = {'top'} classes = {classes} />
-    const panel1Top = { top: `-${this.state.scrollTop}px` };
-    const panel2Top = { top: `-${this.state.scrollTop / 2}px` };
-    const panel3Top = { top: `-${this.state.scrollTop / 3}px` };
+    const panel1Top = { marginTop: `-${this.state.scrollTop}px` };
+    const panel2Top = { marginTop: `-${this.state.scrollTop / 2}px` };
+    const panel3Top = { marginTop: `-${this.state.scrollTop * 3}px` };
 
     return (
-      <div {...resolve(this.props, 'container')} ref={(ref) => this.container = ref }>
+      <div
+        {...resolve(this.props, 'container')}
+        ref={(ref) => this.container = ref }
+      >
         <div key="panel_0"
           ref={(ref) => this.panel0 = ref }
           {...resolve(this.props, 'panel', 'fixed')}
-        >
+        > <ContentBlank classes = {classes} sectionHeight = {this.state.height * 3} />
           <SketchWrapper {...resolve(this.props, 'sketch')} config={config} sketch = { sketch } />
         </div>
+
         <div key="panel_1"
           ref={(ref) => this.panel1 = ref }
           {...resolve(this.props, 'panel', 'one')}
@@ -181,12 +196,16 @@ class Home extends React.Component {
           {...resolve(this.props, 'panel', 'three')}
           style = {panel3Top}
         >
-          <ContentBlank classes = {classes} sectionHeight = {this.state.height * 3} />
+          <ContentBlank classes = {classes} sectionHeight = {this.state.height * 9} />
           <ContentSketch
             modifier = {'highlight'}
             classes = {classes}
             sectionHeight = {this.state.height}
           />
+          <ContentBlank classes = {classes} sectionHeight = {this.state.height / 2} />
+          <ContentBlank classes = {classes} sectionHeight = {this.state.height}>
+          <Badge classes = {BadgeStyle} />
+          </ContentBlank>
         </div>
       </div>
     );
