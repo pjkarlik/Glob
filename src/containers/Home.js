@@ -181,7 +181,7 @@ class Home extends React.Component {
           {...resolve(this.props, 'panel', 'three')}
           style = {panel3Top}
         >
-          <ContentBlank classes = {classes} sectionHeight = {this.state.height * 3.25} />
+          <ContentBlank classes = {classes} sectionHeight = {this.state.height * 3} />
           <ContentSketch
             modifier = {'highlight'}
             classes = {classes}

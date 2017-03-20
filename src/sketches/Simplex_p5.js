@@ -115,7 +115,7 @@ export default function sketch (p) {
             p.box(size, length, length);
             break;
           case 'sphere':
-            p.sphere((1 + (noiseValue * .25)), 6);
+            p.sphere((10 + (noiseValue * .3)), 8);
             break;
           default:
             p.plane(size,length);
@@ -161,12 +161,14 @@ export default function sketch (p) {
   };
 
   p.checkForChange = function() {
-    if (p.random(1,255) > 245 && !timeout) {
+    if (p.random(1,255) > 242 && !timeout) {
       tempX = width_half - (width - p.random(1, width * 2)) * .65;
+      console.log(`New X: ${tempX}`);
       p.pauseChange();
     }
-    if (p.random(1,255) > 240 && !timeout) {
-      tempY = (lastHigh / 3.5) + (30 - p.random(1, 60));
+    if (p.random(1,255) > 220 && !timeout) {
+      tempY = (90 + (lastHigh / 5)) + (40 - p.random(1, 80));
+      console.log(`New Y: ${tempY}`);
       p.pauseChange();
     }
   };
@@ -187,10 +189,10 @@ export default function sketch (p) {
   p.shader = function(noise, i, j){
     switch(shaderType) {
       case 'editor':
-        r = Math.round(155 + Math.cos(noise * 2 * Math.PI / 180 - (time * 0.005)) * 155);
+        r = 155 + Math.cos(noise * 2 * Math.PI / 180 - (time * 0.005)) * 155;
         b = r;
         g = b;
-        op = objectType === 'box' ? 255 : 155;
+        op = objectType === 'plane' ? 155 : 255;
         break;
       case 'outro':
         r = Math.cos(noise * Math.PI / 180 + (time * 0.02)) * 255;
@@ -201,8 +203,8 @@ export default function sketch (p) {
       case 'splash':
         r = Math.cos(noise * Math.PI / 180 + (time * 0.02)) * 255;
         g = 255 - Math.sin(1 + noise * Math.PI / 180 - (time * 0.01)) * 255;
-        b = Math.sin(noise * 2 * Math.PI / 180 + (time * 0.05)) * 255;
-        op = objectType === 'box' ? 255 : 155;
+        b = Math.sin(noise * 2 * Math.PI / 180 + (time * 0.06)) * 255;
+        op = objectType === 'plane' ? 155 : 255;
         break;
     }
 
