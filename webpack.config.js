@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const config = {
-  name: 'pjkarlik',
+  name: 'PortfolioP5js',
   target: 'web',
   devServer: {
     host: '0.0.0.0',

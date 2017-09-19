@@ -1,7 +1,7 @@
 {
-  "name": "glob",
+  "name": "PortfolioP5js",
   "version": "0.0.1",
-  "description": "glob",
+  "description": "PortfolioP5js",
   "main": "index.js",
   "scripts": {
     "webpack": "node node_modules/.bin/webpack --progress --colors",
