@@ -1,5 +1,5 @@
 ![travis ci build](https://travis-ci.org/pjkarlik/PortfolioP5js.svg?branch=master)
-![webpack2](https://img.shields.io/badge/webpack-2.0-brightgreen.svg) ![javascript](https://img.shields.io/badge/es6-bable-yellow.svg)
+![p5js](https://img.shields.io/badge/p5js-5.6-brightgreen.svg) ![javascript](https://img.shields.io/badge/es6-bable-yellow.svg)
 
 # PortfolioP5js - p5js/React
 
