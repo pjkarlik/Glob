@@ -100,8 +100,8 @@ class Home extends React.Component {
 
   checkPosition = () => {
     const { height } = this.state;
-    const top = document.body.scrollTop;
-
+    const top = document.documentElement.scrollTop;
+    console.log(top);
     let options = {};
 
     if (top < height / 2) {
@@ -110,25 +110,30 @@ class Home extends React.Component {
         tempZoom: -75,
         background: [0, 0, 0],
       };
+      console.log(options);
     } else if (top > height / 2 && top < height) {
       options = {
         shaderType: 'editor',
         tempZoom: -50,
         background: [0, 0, 0],
       };
+      console.log(options);
     } else if (top > height && top < (height * 1.5)) {
       options = {
         shaderType: 'editor',
         tempZoom: -1550,
         background: [225, 225, 225],
       };
+      console.log(options);
     } else if (top > (height * 1.5)) {
       options = {
         shaderType: 'outro',
         tempZoom: -500,
         background: [40, 90, 90],
       };
+      console.log(options);
     }
+
     this.setState({
       ...options,
       scrollTop: top,
